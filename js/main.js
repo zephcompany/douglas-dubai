@@ -207,7 +207,7 @@
   /* ---------------------------------------------------------------------
      4c. Mouse glow + 3D tilt on cards (desktop only)
      --------------------------------------------------------------------- */
-  const glowTargets = $$(".card, .stat, .feature, .ticker__strip, .step, .trade-mock > div, .visual-panel, .market");
+  const glowTargets = $$(".card, .stat, .ticker__strip, .step, .trade-mock > div, .visual-panel, .market");
   glowTargets.forEach((el) => el.classList.add("glow"));
   if (finePointer && !reduceMotion) {
     document.addEventListener("pointermove", (e) => {

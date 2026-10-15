@@ -447,6 +447,7 @@ body.is-entering main, body.is-entering .header { animation: pageIn 0.7s var(--e
   display: grid; place-items: center;
   transition: transform var(--t-base) var(--ease-out), background var(--t-base);
 }
+.feature { padding: 4px 0; border-radius: 0; }
 .feature:hover .feature__icon { transform: translateY(-3px) scale(1.05); background: var(--blue); color: #fff; box-shadow: 0 12px 22px -10px rgba(26,108,247,0.7); }
 .feature__icon { transition: transform var(--t-base) var(--ease-out), background var(--t-base), color var(--t-base), box-shadow var(--t-base); }
 .feature h3 { transition: color var(--t-fast); }
