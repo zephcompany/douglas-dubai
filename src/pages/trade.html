@@ -1,0 +1,178 @@
+---
+title: Trade — Kryptobit
+description: Plataforma de negociação profissional com gráficos avançados, order book em tempo real e execução em milissegundos.
+nav: trade
+loader: short
+---
+    <!-- ============ PAGE HERO ============ -->
+    <section class="page-hero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="container">
+        <div class="page-hero__inner">
+          <span class="eyebrow reveal-up">Trade</span>
+          <h1 class="page-title">
+            <span class="line"><span class="line__inner">Negocie com velocidade</span></span>
+            <span class="line"><span class="line__inner"><span class="accent">e precisão profissional.</span></span></span>
+          </h1>
+          <p class="page-lead reveal-up" data-delay="0.15">Gráficos avançados, order book em tempo real, ordens limite, mercado e stop. Execução em milissegundos com a liquidez de uma exchange global.</p>
+          <div class="page-actions reveal-up" data-delay="0.25">
+            <a href="#criar-conta" class="btn btn--primary btn--lg">Abrir conta e negociar
+              <svg class="btn__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </a>
+            <a href="mercados.html" class="btn btn--outline btn--lg">Ver mercados</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TRADE INTERFACE ============ -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="trade-mock reveal-up" aria-label="Pré-visualização da interface de negociação">
+          <!-- Chart -->
+          <div>
+            <div class="tm-pair">
+              <span class="coin__icon coin__icon--btc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.4 11.3c.9-.5 1.4-1.3 1.3-2.4-.2-1.6-1.5-2.1-3.1-2.3V4.4h-1.4v2.1h-1.1V4.4H8.7v2.1H6.4v1.5h1c.5 0 .7.3.7.7v6.3c0 .4-.2.6-.6.6h-1l-.3 1.6h2.4v2.2h1.4v-2.2h1.1v2.2h1.4v-2.2c2.2-.1 3.8-.8 4-2.9.2-1.6-.6-2.4-2.1-2.8zm-4.2-3.4c.9 0 2.9-.3 2.9 1.2s-2 1.2-2.9 1.2V7.9zm0 6.6v-2.7c1.1 0 3.5-.3 3.5 1.3s-2.4 1.4-3.5 1.4z"/></svg></span>
+              <strong>BTC/USDT</strong>
+              <span class="tm-price">68.452,31</span>
+              <span class="delta delta--up">+2,45%</span>
+              <div class="tm-meta">
+                <span>Máx. 24h<b>69.120,00</b></span>
+                <span>Mín. 24h<b>66.310,25</b></span>
+                <span>Volume 24h<b>12.483,42 BTC</b></span>
+              </div>
+            </div>
+            <div class="tm-ranges"><span>1m</span><span>5m</span><span>15m</span><span class="is-on">1h</span><span>4h</span><span>1D</span><span>1S</span></div>
+            <svg class="tm-chart" viewBox="0 0 720 300" aria-hidden="true">
+              <defs>
+                <linearGradient id="tmArea" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1A6CF7" stop-opacity=".18"/><stop offset="1" stop-color="#1A6CF7" stop-opacity="0"/></linearGradient>
+              </defs>
+              <g stroke="#EEF2F8" stroke-width="1">
+                <line x1="0" y1="60" x2="720" y2="60"/><line x1="0" y1="120" x2="720" y2="120"/><line x1="0" y1="180" x2="720" y2="180"/><line x1="0" y1="240" x2="720" y2="240"/>
+              </g>
+              <g fill="#8A94A6" font-size="10" font-family="Inter, sans-serif" text-anchor="end">
+                <text x="716" y="56">69.500</text><text x="716" y="116">68.500</text><text x="716" y="176">67.500</text><text x="716" y="236">66.500</text>
+              </g>
+              <path fill="url(#tmArea)" d="M0 210 L40 196 L80 204 L120 180 L160 188 L200 160 L240 170 L280 140 L320 150 L360 120 L400 132 L440 100 L480 110 L520 84 L560 96 L600 70 L640 80 L680 58 L720 64 V300 H0 Z"/>
+              <path fill="none" stroke="#1A6CF7" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" d="M0 210 L40 196 L80 204 L120 180 L160 188 L200 160 L240 170 L280 140 L320 150 L360 120 L400 132 L440 100 L480 110 L520 84 L560 96 L600 70 L640 80 L680 58 L720 64"/>
+              <!-- candles -->
+              <g stroke-width="1.4">
+                <g stroke="#16A36A" fill="#16A36A"><line x1="60" y1="190" x2="60" y2="216"/><rect x="57" y="196" width="6" height="14"/><line x1="140" y1="170" x2="140" y2="198"/><rect x="137" y="176" width="6" height="16"/><line x1="220" y1="150" x2="220" y2="178"/><rect x="217" y="156" width="6" height="14"/><line x1="300" y1="128" x2="300" y2="156"/><rect x="297" y="134" width="6" height="16"/><line x1="380" y1="110" x2="380" y2="138"/><rect x="377" y="116" width="6" height="14"/><line x1="460" y1="90" x2="460" y2="116"/><rect x="457" y="96" width="6" height="14"/><line x1="540" y1="74" x2="540" y2="102"/><rect x="537" y="80" width="6" height="16"/><line x1="620" y1="60" x2="620" y2="88"/><rect x="617" y="66" width="6" height="14"/></g>
+                <g stroke="#D93A4A" fill="#D93A4A"><line x1="100" y1="194" x2="100" y2="214"/><rect x="97" y="198" width="6" height="12"/><line x1="180" y1="178" x2="180" y2="196"/><rect x="177" y="182" width="6" height="10"/><line x1="260" y1="160" x2="260" y2="180"/><rect x="257" y="164" width="6" height="12"/><line x1="340" y1="140" x2="340" y2="158"/><rect x="337" y="144" width="6" height="10"/><line x1="420" y1="122" x2="420" y2="140"/><rect x="417" y="126" width="6" height="10"/><line x1="500" y1="100" x2="500" y2="120"/><rect x="497" y="104" width="6" height="12"/><line x1="580" y1="86" x2="580" y2="104"/><rect x="577" y="90" width="6" height="10"/><line x1="660" y1="70" x2="660" y2="88"/><rect x="657" y="74" width="6" height="10"/></g>
+              </g>
+              <!-- volume -->
+              <g fill="#1A6CF7" opacity=".28">
+                <rect x="20" y="276" width="22" height="24"/><rect x="60" y="270" width="22" height="30"/><rect x="100" y="282" width="22" height="18"/><rect x="140" y="266" width="22" height="34"/><rect x="180" y="274" width="22" height="26"/><rect x="220" y="260" width="22" height="40"/><rect x="260" y="280" width="22" height="20"/><rect x="300" y="268" width="22" height="32"/><rect x="340" y="276" width="22" height="24"/><rect x="380" y="258" width="22" height="42"/><rect x="420" y="272" width="22" height="28"/><rect x="460" y="262" width="22" height="38"/><rect x="500" y="278" width="22" height="22"/><rect x="540" y="256" width="22" height="44"/><rect x="580" y="270" width="22" height="30"/><rect x="620" y="264" width="22" height="36"/><rect x="660" y="274" width="22" height="26"/>
+              </g>
+              <g>
+                <line x1="0" y1="119" x2="720" y2="119" stroke="#1A6CF7" stroke-width="1" stroke-dasharray="4 4" opacity=".5"/>
+                <rect x="650" y="109" width="68" height="20" rx="4" fill="#1A6CF7"/><text x="684" y="123" fill="#fff" font-size="11" font-weight="700" font-family="Inter, sans-serif" text-anchor="middle">68.452,31</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Order book -->
+          <div>
+            <div class="tm-title">Livro de ofertas</div>
+            <div class="ob">
+              <div class="ask" style="--w:62%"><span>68.459,10</span><span>0,5621</span></div>
+              <div class="ask" style="--w:40%"><span>68.456,90</span><span>0,3245</span></div>
+              <div class="ask" style="--w:85%"><span>68.455,20</span><span>0,8452</span></div>
+              <div class="ask" style="--w:28%"><span>68.454,00</span><span>0,1234</span></div>
+              <div class="ask" style="--w:50%"><span>68.453,10</span><span>0,4356</span></div>
+              <div class="mid">68.452,31 ↑</div>
+              <div class="bid" style="--w:45%"><span>68.451,90</span><span>0,4213</span></div>
+              <div class="bid" style="--w:70%"><span>68.450,80</span><span>0,6221</span></div>
+              <div class="bid" style="--w:90%"><span>68.450,10</span><span>1,1243</span></div>
+              <div class="bid" style="--w:52%"><span>68.449,40</span><span>0,8450</span></div>
+              <div class="bid" style="--w:34%"><span>68.448,70</span><span>0,3321</span></div>
+            </div>
+          </div>
+
+          <!-- Buy / Sell -->
+          <div>
+            <div class="bs"><button class="is-on" type="button">Comprar</button><button class="is-sell" type="button">Vender</button></div>
+            <div class="tm-ranges" style="margin-top:14px"><span class="is-on">Limite</span><span>Mercado</span><span>Stop</span></div>
+            <div class="field"><label>Preço (USDT)</label><div>68.452,31 <small>USDT</small></div></div>
+            <div class="field"><label>Quantidade (BTC)</label><div>0,0000 <small>BTC</small></div></div>
+            <div class="slider" aria-hidden="true"></div>
+            <div class="tm-total"><span>Total (USDT)</span><b>0,00</b></div>
+            <a href="#criar-conta" class="btn btn--primary">Comprar BTC</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="section">
+      <div class="container">
+        <div class="section__head reveal-up">
+          <div>
+            <h2 class="section__title">Tudo o que um trader precisa</h2>
+            <p class="section__text">Ferramentas profissionais, com a simplicidade que você espera de uma plataforma moderna.</p>
+          </div>
+        </div>
+        <ul class="cards">
+          <li class="card reveal-up">
+            <span class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg></span>
+            <h3>Gráficos avançados</h3>
+            <p>Candles, indicadores técnicos, desenhos e múltiplos períodos — tudo em tempo real.</p>
+          </li>
+          <li class="card reveal-up" data-delay="0.08">
+            <span class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8"/><path d="M8 8h5"/><path d="M8 16h3"/></svg></span>
+            <h3>Tipos de ordem</h3>
+            <p>Ordens limite, a mercado, stop-limit e OCO para estratégias de qualquer nível.</p>
+          </li>
+          <li class="card reveal-up" data-delay="0.16">
+            <span class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+            <h3>Execução instantânea</h3>
+            <p>Motor de matching com latência de milissegundos e 99,99% de disponibilidade.</p>
+          </li>
+          <li class="card reveal-up" data-delay="0.24">
+            <span class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <h3>Taxas a partir de 0,10%</h3>
+            <p>Descontos progressivos por volume e taxas reduzidas para ordens maker.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ SPLIT ============ -->
+    <section class="section section--soft">
+      <div class="container split">
+        <div class="reveal-up">
+          <span class="eyebrow">Segurança</span>
+          <h2 class="section__title" style="margin-top:14px">Seus ativos protegidos em cada ordem</h2>
+          <p class="section__text">Infraestrutura de nível institucional para que você se preocupe apenas com a sua estratégia.</p>
+          <ul class="split__list">
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span><strong>98% dos ativos em cold wallet</strong>, com assinaturas múltiplas e auditoria independente.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span><strong>Autenticação em dois fatores</strong>, whitelist de endereços e alertas de login.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span><strong>Prova de reservas</strong> publicada mensalmente — transparência total sobre o que custodiamos.</span></li>
+          </ul>
+        </div>
+        <div class="visual-panel reveal-up" data-delay="0.1">
+          <picture>
+            <source srcset="assets/kryptobit-hero-devices.webp" type="image/webp" />
+            <img src="assets/kryptobit-hero-devices.png" alt="Plataforma Kryptobit no notebook e no celular" width="1248" height="1000" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-band cta-band--navy reveal-up">
+          <div>
+            <h2>Comece a negociar hoje</h2>
+            <p>Cadastro em minutos, depósito via Pix e acesso imediato a mais de 200 criptomoedas.</p>
+          </div>
+          <div class="page-actions">
+            <a href="#criar-conta" class="btn btn--primary btn--lg">Criar conta gratuita
+              <svg class="btn__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </a>
+            <a href="mercados.html" class="btn btn--outline btn--lg">Ver mercados</a>
+          </div>
+        </div>
+      </div>
+    </section>
