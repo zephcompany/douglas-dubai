@@ -20,13 +20,36 @@
   /* ---------------------------------------------------------------------
      1. Preloader → hero entrance
      --------------------------------------------------------------------- */
-  document.body.classList.add("is-loading");
+  if (preloader) document.body.classList.add("is-loading");
+
+  // split titles into words (word-by-word reveal)
+  const splitWords = (el) => {
+    if (el.dataset.split) return;
+    el.dataset.split = "1";
+    const walk = (node) => {
+      [...node.childNodes].forEach((n) => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            const w = document.createElement("span"); w.className = "w"; w.textContent = part; frag.appendChild(w);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1 && !n.classList.contains("w")) walk(n);
+      });
+    };
+    walk(el);
+    $$(".w", el).forEach((w, i) => w.style.setProperty("--i", i));
+  };
+  $$(".split-words, .text-reveal").forEach(splitWords);
 
   const revealHero = () => {
     header.classList.add("is-ready");
     if (heroTitle) heroTitle.classList.add("is-in");
     if (heroVisual) heroVisual.classList.add("is-in");
-    $$(".page-hero .reveal-up, .page-hero .line__inner").forEach((el) => el.classList.add("is-in"));
+    $$(".page-hero .reveal-up, .page-hero .line__inner, .page-hero .split-words").forEach((el) => el.classList.add("is-in"));
+    if (heroVisual) setTimeout(() => heroVisual.classList.add("is-floating"), 2000);
     $$(".hero .reveal-up").forEach((el) => {
       const d = parseFloat(el.dataset.delay || 0) * 1000;
       setTimeout(() => el.classList.add("is-in"), d);
@@ -36,12 +59,16 @@
   const finishLoading = () => {
     preloader.classList.add("is-done");
     document.body.classList.remove("is-loading");
-    // give the preloader fade a head start, then reveal
-    setTimeout(revealHero, reduceMotion ? 0 : 180);
-    setTimeout(() => preloader.remove(), 1200);
+    // the curtain slides up; reveal just as it clears the hero
+    setTimeout(revealHero, reduceMotion ? 0 : 350);
+    setTimeout(() => preloader.remove(), 1400);
   };
 
-  const MIN_LOADER = reduceMotion ? 0 : (document.body.dataset.loader === "short" ? 900 : 1450);
+  if (!preloader) {
+    document.body.classList.add("is-entering");
+    requestAnimationFrame(() => setTimeout(revealHero, 60));
+  }
+  const MIN_LOADER = reduceMotion ? 0 : (document.body.dataset.loader === "short" ? 900 : 1900);
   const start = performance.now();
   const heroImgReady = new Promise((res) => {
     if (!heroDevices || heroDevices.complete) return res();
@@ -49,10 +76,12 @@
     heroDevices.addEventListener("error", res, { once: true });
     setTimeout(res, 3500); // never block forever
   });
-  Promise.all([heroImgReady, document.fonts ? document.fonts.ready : Promise.resolve()]).then(() => {
-    const wait = Math.max(0, MIN_LOADER - (performance.now() - start));
-    setTimeout(finishLoading, wait);
-  });
+  if (preloader) {
+    Promise.all([heroImgReady, document.fonts ? document.fonts.ready : Promise.resolve()]).then(() => {
+      const wait = Math.max(0, MIN_LOADER - (performance.now() - start));
+      setTimeout(finishLoading, wait);
+    });
+  }
 
   /* ---------------------------------------------------------------------
      2. Header scroll state
@@ -82,7 +111,43 @@
       io.unobserve(el);
     });
   }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
-  $$(".reveal-up:not(.hero .reveal-up)").forEach((el) => io.observe(el));
+  $$(".reveal-up:not(.hero .reveal-up), .split-words:not(.page-hero .split-words), .text-reveal, .draw, .ob").forEach((el) => io.observe(el));
+  $$(".ob div").forEach((d, i) => d.style.setProperty("--i", i));
+
+  /* ---------------------------------------------------------------------
+     3b. Count-up numbers (.stat strong)
+     --------------------------------------------------------------------- */
+  const counters = $$(".stat strong");
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      cio.unobserve(e.target); countUp(e.target);
+    });
+  }, { threshold: 0.4 });
+  counters.forEach((c) => cio.observe(c));
+  function countUp(el) {
+    const text = el.textContent.trim();
+    const m = text.match(/^([^\d]*)([\d.]+)(?:,(\d+))?(.*)$/);
+    if (!m || reduceMotion) return;
+    const [, prefix, intPart, decPart, suffix] = m;
+    const target = parseFloat(intPart.replace(/\./g, "") + (decPart ? "." + decPart : ""));
+    const decimals = decPart ? decPart.length : 0;
+    const useThousands = intPart.includes(".");
+    const dur = 1400, t0 = performance.now();
+    const fmt = (v) => {
+      let str = v.toFixed(decimals);
+      let [i, d] = str.split(".");
+      if (useThousands) i = i.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return prefix + i + (d ? "," + d : "") + suffix;
+    };
+    const tick = (now) => {
+      const p = Math.min(1, (now - t0) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(target * eased);
+      if (p < 1) requestAnimationFrame(tick); else el.textContent = text;
+    };
+    requestAnimationFrame(tick);
+  }
 
   /* ---------------------------------------------------------------------
      4. Hero parallax (very subtle, desktop only)
@@ -124,6 +189,70 @@
   }
 
   /* ---------------------------------------------------------------------
+     4b. Cursor-lit grid in hero backgrounds (desktop only)
+     --------------------------------------------------------------------- */
+  if (finePointer && !reduceMotion) {
+    $$(".hero, .page-hero").forEach((sec) => {
+      const grid = document.createElement("div");
+      grid.className = "hero__grid"; grid.setAttribute("aria-hidden", "true");
+      sec.insertBefore(grid, sec.firstChild);
+      sec.addEventListener("pointermove", (e) => {
+        const r = sec.getBoundingClientRect();
+        grid.style.setProperty("--gx", (e.clientX - r.left) + "px");
+        grid.style.setProperty("--gy", (e.clientY - r.top) + "px");
+      }, { passive: true });
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+     4c. Mouse glow + 3D tilt on cards (desktop only)
+     --------------------------------------------------------------------- */
+  const glowTargets = $$(".card, .stat, .feature, .ticker__strip, .step, .trade-mock > div, .visual-panel, .market");
+  glowTargets.forEach((el) => el.classList.add("glow"));
+  if (finePointer && !reduceMotion) {
+    document.addEventListener("pointermove", (e) => {
+      const el = e.target.closest(".glow");
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      el.style.setProperty("--my", (e.clientY - r.top) + "px");
+    }, { passive: true });
+
+    $$(".card, .stat").forEach((el) => {
+      el.classList.add("tilt");
+      let raf = null, rx = 0, ry = 0;
+      el.addEventListener("pointermove", (e) => {
+        const r = el.getBoundingClientRect();
+        ry = ((e.clientX - r.left) / r.width - 0.5) * 8;
+        rx = -((e.clientY - r.top) / r.height - 0.5) * 8;
+        if (!raf) raf = requestAnimationFrame(() => {
+          el.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-4px)`;
+          raf = null;
+        });
+      });
+      el.addEventListener("pointerleave", () => { el.style.transform = ""; });
+    });
+    $$(".cta-band, .app__banner, .trade-mock").forEach((el) => el.classList.add("border-sweep"));
+  }
+
+  /* ---------------------------------------------------------------------
+     4d. "Live" prices — subtle random ticks on the ticker & market tables
+     --------------------------------------------------------------------- */
+  const prices = $$(".coin__meta em, .market-row .num:not(.num--muted)").filter((el) => /R\$\s[\d.]+,\d{2}$/.test(el.textContent.trim()));
+  if (prices.length && !reduceMotion) {
+    const bump = () => {
+      const el = prices[Math.floor(Math.random() * prices.length)];
+      const m = el.textContent.trim().match(/^R\$\s([\d.]+),(\d{2})$/);
+      if (!m) return;
+      const cents = (parseInt(m[2], 10) + (Math.random() < 0.5 ? -1 : 1) * Math.ceil(Math.random() * 7) + 100) % 100;
+      el.textContent = `R$ ${m[1]},${String(cents).padStart(2, "0")}`;
+      el.classList.remove("flash-up"); void el.offsetWidth; el.classList.add("flash-up");
+      setTimeout(bump, 1800 + Math.random() * 2600);
+    };
+    setTimeout(bump, 3500);
+  }
+
+  /* ---------------------------------------------------------------------
      5. Custom cursor (desktop only)
      --------------------------------------------------------------------- */
   const cursor = $("#cursor");
@@ -142,7 +271,7 @@
     document.addEventListener("pointerleave", () => cursor.classList.remove("is-visible"));
     document.addEventListener("pointerenter", () => cursor.classList.add("is-visible"));
 
-    const hoverables = "a, button, .coin, .feature, .market-row, .earn-card";
+    const hoverables = "a, button, .coin, .feature, .market-row, .card, .stat, .step";
     document.addEventListener("pointerover", (e) => {
       if (e.target.closest(hoverables)) cursor.classList.add("is-hover");
     });

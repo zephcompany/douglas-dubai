@@ -17,6 +17,17 @@ SRC = ROOT / "src"
 HEAD = (SRC / "partials" / "head.html").read_text(encoding="utf-8")
 FOOT = (SRC / "partials" / "foot.html").read_text(encoding="utf-8")
 NAV_KEYS = ["mercados", "trade", "ganhe", "institucional", "mais"]
+PRELOADER = """  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__logo">
+      <span class="preloader__ring"></span>
+      <img class="preloader__symbol" src="assets/kryptobit-symbol.png" alt="" width="326" height="342" />
+      <span class="preloader__word"><img src="assets/kryptobit-wordmark.png" alt="" width="1003" height="279" /></span>
+    </div>
+    <div class="preloader__line"><span></span></div>
+  </div>
+
+"""
 
 def build(page: pathlib.Path):
     raw = page.read_text(encoding="utf-8")
@@ -33,6 +44,7 @@ def build(page: pathlib.Path):
     pre = meta.get("preload")
     head = head.replace("{{preload}}", f'<link rel="preload" as="image" href="{pre}" type="image/webp" />' if pre else "")
     head = head.replace("{{bodyattrs}}", ' data-loader="short"' if meta.get("loader") == "short" else "")
+    head = head.replace("{{preloader}}", "" if meta.get("loader") == "none" else PRELOADER)
     for k in NAV_KEYS:
         head = head.replace("{{cur:%s}}" % k, ' aria-current="page"' if meta.get("nav") == k else "")
     out = ROOT / page.name
